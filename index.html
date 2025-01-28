@@ -1187,7 +1187,7 @@
     <script>
            // Load .env file using fetch
            async function loadEnv() {
-            const response = await fetch('/.env');
+            const response = await fetch('./.env');
             const text = await response.text();
             const env = {};
             text.split('\n').forEach(line => {
