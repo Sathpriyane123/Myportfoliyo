@@ -14,13 +14,14 @@
             margin-left: 25%;
         }
     </style>
-     <style>
+    <style>
         /* General Styling for Scrollable Website */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             overflow-y: scroll;
-            height: 2000px; /* Ensure the page is scrollable */
+            height: 2000px;
+            /* Ensure the page is scrollable */
             background: linear-gradient(180deg, #f9f9f9, #e3e3e3);
         }
 
@@ -60,14 +61,15 @@
                 transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
             }
+
             100% {
                 transform: translate(-50%, -50%) scale(1.5);
                 opacity: 0;
             }
         }
 
-         /* Spark Styling */
-         .spark {
+        /* Spark Styling */
+        .spark {
             position: absolute;
             width: 5px;
             height: 10px;
@@ -84,6 +86,7 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+
             100% {
                 transform: translateY(100vh);
                 opacity: 0;
@@ -98,7 +101,7 @@
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
     <div class="mouse-circle" id="mouseCircle"></div>
- <script>
+    <script>
         const mouseCircle = document.getElementById("mouseCircle");
         let sparkTimer;
         let isMouseMoving = false;
@@ -159,7 +162,7 @@
             clearInterval(sparkTimer); // Stop creating sparks
             sparkTimer = null; // Reset timer
         });
-    </script>    
+    </script>
     <!-- Page Navbar -->
     <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
         <div class="container">
@@ -208,7 +211,7 @@
             <!-- JavaScript for Typing Animation -->
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                    const textArray = ["Python Fullstack Developer", "Frontend Developer", "Designer","React Developer"];
+                    const textArray = ["Python Fullstack Developer", "Frontend Developer", "Designer", "React Developer"];
                     const typingSpeed = 100; // Typing speed in milliseconds
                     const erasingSpeed = 50; // Erasing speed in milliseconds
                     const delayBetween = 2000; // Delay between word cycles in milliseconds
@@ -745,8 +748,7 @@
                 </div>
                 <div class="col-md-4">
                     <a href="#" class="portfolio-card">
-                        <img class="portfolio-card-img" src="imgs/folio-2.jpg"
-                            class="img-responsive rounded"
+                        <img class="portfolio-card-img" src="imgs/folio-2.jpg" class="img-responsive rounded"
                             alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
                         <span class="portfolio-card-overlay">
                             <span class="portfolio-card-caption">
@@ -758,8 +760,7 @@
                 </div>
                 <div class="col-md-4">
                     <a href="#" class="portfolio-card">
-                        <img class="portfolio-card-img" src="imgs/folio-3.jpg"
-                            class="img-responsive rounded"
+                        <img class="portfolio-card-img" src="imgs/folio-3.jpg" class="img-responsive rounded"
                             alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
                         <span class="portfolio-card-overlay">
                             <span class="portfolio-card-caption">
@@ -1117,22 +1118,22 @@
                             { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c9c9c9' }] }
                         ]
                     });
-            
+
                     const marker = new google.maps.Marker({
                         position: location,
                         map: map,
                         animation: google.maps.Animation.DROP,
                         title: "Vengeri PO, Calicut"
                     });
-            
+
                     marker.addListener("click", () => {
                         marker.setAnimation(marker.getAnimation() ? null : google.maps.Animation.BOUNCE);
                     });
                 }
-            
+
                 window.onload = initMap;
             </script>
-            
+
             <!-- CSS for Map -->
             <style>
                 .map-container {
@@ -1162,26 +1163,67 @@
                 }
             </style>
             <h2>Send Meassage </h2>
-            <!-- contact form -->
-            <form action="contact" method="POST" class="contact-form col-md-10 col-lg-8 m-auto">
+            <!-- Contact Form -->
+            <form id="contactForm" class="contact-form col-md-10 col-lg-8 m-auto">
                 <div class="form-row">
                     <div class="form-group col-sm-6">
-                        <input type="text" size="50" class="form-control" placeholder="Your Name" name="name" required>
+                        <input type="text" class="form-control" placeholder="Your Name" name="name" required>
                     </div>
                     <div class="form-group col-sm-6">
-                        <input type="email" class="form-control" placeholder="Enter Email" name="email" requried>
+                        <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
                     </div>
                     <div class="form-group col-sm-12">
-                        <textarea id="comment" rows="6" class="form-control" placeholder="Write Something"
-                            name="description"></textarea>
+                        <textarea rows="6" class="form-control" placeholder="Write Something" name="message"
+                            required></textarea>
                     </div>
                     <div class="form-group col-sm-12 mt-3">
-                        <input type="submit" value="Send Message" class="btn btn-outline-primary rounded">
+                        <button type="submit" class="btn btn-outline-primary rounded">Send Message</button>
                     </div>
                 </div>
-            </form><!-- end of contact form -->
+            </form>
         </div><!-- end of container -->
     </section><!-- end of contact section -->
+    <!-- script for  email push and google form -->
+    <script>
+           // Load .env file using fetch
+           async function loadEnv() {
+            const response = await fetch('/.env');
+            const text = await response.text();
+            const env = {};
+            text.split('\n').forEach(line => {
+                const [key, value] = line.split('=');
+                if (key && value) env[key.trim()] = value.trim();
+            });
+            return env;
+        }
+
+
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const env = await loadEnv();
+
+            // Prepare form data
+            const formData = new FormData(e.target);
+
+            // Replace with your Google Apps Script URL
+            const scriptURL =env.GOOGLE_SCRIPT_URL  ;
+            // const scriptURL ='https://script.google.com/macros/s/AKfycbxMs0K676GAzRecy5lZXjYkiy_xj5s7iNKEbcNRPUAlKn-rmEtigZA2_hPtrcv4CsXIUw/exec';
+
+
+            // Submit data to Google Apps Script
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData,
+            })
+                .then((response) => {
+                    alert('Form submitted successfully!');
+                })
+                .catch((error) => {
+                    alert('Error submitting the form.');
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 
     <!-- footer -->
     <div class="container">
