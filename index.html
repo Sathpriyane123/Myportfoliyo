@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with Meyawo landing page.">
+    <meta name="author" content="Devcrud">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <title>Sathpriyan Portfolio</title>
+    <style>
+        .ct {
+            text-align: justify;
+            margin-left: 25%;
+        }
+    </style>
+     <style>
+        /* General Styling for Scrollable Website */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-y: scroll;
+            height: 2000px; /* Ensure the page is scrollable */
+            background: linear-gradient(180deg, #f9f9f9, #e3e3e3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .content {
+            margin: 50px auto;
+            width: 90%;
+            max-width: 800px;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Mouse Animation Styling */
+        .mouse-circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            background: rgba(0, 123, 255, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            mix-blend-mode: multiply;
+            transform: translate(-50%, -50%);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+         /* Spark Styling */
+         .spark {
+            position: absolute;
+            width: 5px;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(144, 131, 243, 0.8), rgba(255, 255, 255, 0));
+            opacity: 95%;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        /* Falling Animation */
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+    <!-- font icons -->
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <!-- Bootstrap + Meyawo main styles -->
+    <link rel="stylesheet" href="css/meyawo.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    <div class="mouse-circle" id="mouseCircle"></div>
+ <script>
+        const mouseCircle = document.getElementById("mouseCircle");
+        let sparkTimer;
+        let isMouseMoving = false;
+
+        // Function to update the mouse circle position
+        document.addEventListener("mousemove", (e) => {
+            isMouseMoving = true; // Indicate that the mouse is moving
+            const x = e.pageX;
+            const y = e.pageY;
+
+            // Update circle position
+            mouseCircle.style.left = `${x}px`;
+            mouseCircle.style.top = `${y}px`;
+
+            // Start the spark timer
+            if (!sparkTimer) {
+                sparkTimer = setInterval(() => {
+                    if (isMouseMoving) {
+                        createSpark(e); // Create a spark if the mouse is moving
+                        isMouseMoving = false; // Reset mouse movement flag
+                    }
+                }, 100); // 100ms interval for spark creation
+            }
+        });
+
+        // Function to create sparks
+        function createSpark(event) {
+            const spark = document.createElement("div");
+            spark.classList.add("spark");
+
+            // Set the initial position to the cursor's location
+            spark.style.left = `${event.pageX}px`;
+            spark.style.top = `${event.pageY}px`;
+
+            // Set random animation duration
+            spark.style.animationDuration = `${Math.random() * 3 + 2}s`; // 2s to 5s
+
+            document.body.appendChild(spark);
+
+            // Remove the spark after the animation ends
+            spark.addEventListener("animationend", () => {
+                spark.remove();
+            });
+        }
+
+        // Stop sparks when mouse stops moving
+        let stopSparksTimeout;
+        document.addEventListener("mousemove", () => {
+            clearTimeout(stopSparksTimeout); // Clear any existing timeout
+            stopSparksTimeout = setTimeout(() => {
+                clearInterval(sparkTimer); // Stop spark creation
+                sparkTimer = null; // Reset timer
+            }, 200); // Stop after 200ms of inactivity
+        });
+
+        // Clear sparks when the mouse leaves the viewport
+        document.addEventListener("mouseout", () => {
+            clearInterval(sparkTimer); // Stop creating sparks
+            sparkTimer = null; // Reset timer
+        });
+    </script>    
+    <!-- Page Navbar -->
+    <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="logo" href="#">SATHPRIYAN E</a>
+            <ul class="nav">
+                <li class="item">
+                    <a class="link" href="#home">Home</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#about">About</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#service">Service</a>
+                </li>
+
+                <li class="item">
+                    <a class="link" href="#portfolio">Portfolio</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#skill">Skill</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#contact">Contact</a>
+                </li>
+            </ul>
+            <a href="javascript:void(0)" id="nav-toggle" class="hamburger hamburger--elastic">
+                <div class="hamburger-box">
+                    <div class="hamburger-inner"></div>
+                </div>
+            </a>
+        </div>
+    </nav><!-- End of Page Navbar -->
+
+    <!-- page header -->
+    <!-- Page Header -->
+    <header id="home" class="header">
+        <div class="overlay"></div>
+        <div class="header-content container">
+            <h1 class="header-title">
+                <span class="up animate-up">HI!</span>
+                <span class="down animate-down">I am Sathpriyan E</span>
+            </h1>
+            <p class="header-subtitle animate-fade">
+                <span id="animated-text"></span>
+            </p>
+            <!-- JavaScript for Typing Animation -->
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const textArray = ["Python Fullstack Developer", "Frontend Developer", "Designer","React Developer"];
+                    const typingSpeed = 100; // Typing speed in milliseconds
+                    const erasingSpeed = 50; // Erasing speed in milliseconds
+                    const delayBetween = 2000; // Delay between word cycles in milliseconds
+
+                    let textIndex = 0;
+                    let charIndex = 0;
+                    const animatedText = document.getElementById("animated-text");
+
+                    function type() {
+                        if (charIndex < textArray[textIndex].length) {
+                            animatedText.textContent += textArray[textIndex].charAt(charIndex);
+                            charIndex++;
+                            setTimeout(type, typingSpeed);
+                        } else {
+                            setTimeout(erase, delayBetween);
+                        }
+                    }
+
+                    function erase() {
+                        if (charIndex > 0) {
+                            animatedText.textContent = textArray[textIndex].substring(0, charIndex - 1);
+                            charIndex--;
+                            setTimeout(erase, erasingSpeed);
+                        } else {
+                            textIndex = (textIndex + 1) % textArray.length; // Move to the next text
+                            setTimeout(type, typingSpeed);
+                        }
+                    }
+
+                    type(); // Start the typing animation
+                });
+            </script>
+
+            <!-- CSS for Style -->
+            <style>
+                .header-subtitle {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    color: #333;
+                    text-align: center;
+                    margin: 20px 0;
+                    position: relative;
+                }
+
+                #animated-text {
+                    color: blueviolet;
+                    /* Highlighted text color */
+                    font-weight: bold;
+                    border-right: 2px solid #007bff;
+                    /* Blinking cursor effect */
+                    animation: blink 0.7s infinite;
+                }
+
+                @keyframes blink {
+
+                    0%,
+                    100% {
+                        border-color: transparent;
+                    }
+
+                    50% {
+                        border-color: #007bff;
+                    }
+                }
+            </style>
+            <a href=""><button class="btn btn-primary">Visit My Works</button></a>
+        </div>
+    </header>
+
+    <style>
+        /* Animation Keyframes */
+        @keyframes slide-up {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slide-down {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Applying Animations */
+        .animate-up {
+            animation: slide-up 1.5s ease-out;
+        }
+
+        .animate-down {
+            animation: slide-down 1.5s ease-out;
+        }
+
+        .animate-fade {
+            animation: fade-in 2s ease-in-out;
+        }
+
+        /* Additional Styling for Visibility */
+        .header-title {
+            font-size: 2.5rem;
+            color: blueviolet;
+            text-align: center;
+            margin: 0;
+        }
+
+        .header-subtitle {
+            font-size: 1.5rem;
+            color: blueviolet;
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+    <!-- End of Page Header -->
+    <!-- About Section -->
+    <section class="section pt-0" id="about">
+        <!-- Container -->
+        <div class="container text-center">
+            <!-- About Wrapper -->
+            <div class="about">
+                <div class="about-img-holder animate__animated animate__fadeInLeft">
+                    <img src="imgs/myphoto.jpg" class="about-img" alt="Photo of Sathpriyan E">
+                </div>
+                <div class="about-caption animate__animated animate__fadeInRight">
+                    <p class="section-subtitle">Who Am I?</p>
+                    <h2 class="section-title mb-3">About Me</h2>
+                    <p>
+                        Hey there! I'm Sathpriyan E, a dedicated software developer with a knack for turning ideas into
+                        reality through clean, efficient code. With 6 months at Doctosmart Enterprise Pvt at Cyber Park
+                        Calicut, I've cultivated a deep passion for crafting seamless digital experiences and solving
+                        complex problems with innovative solutions.<br><br>
+
+                        Currently, I am working as a Junior Software Developer and am actively engaged in an IVF
+                        project.<br><br>
+
+                        My journey into the world of coding began with curiosity and a desire to create meaningful
+                        impact.
+                        I’ve become proficient in various programming languages and frameworks, including HTML, CSS,
+                        JavaScript, MySQL, Django, Python, and React.<br><br>
+
+                        Outside of coding, I enjoy tinkering with side projects, contributing to open-source
+                        communities, and staying updated with the latest tech trends.
+                    </p>
+                    <button class="btn-rounded btn btn-outline-primary mt-4" id="downloadCVButton"
+                        data-pdf-url="Asset/SathpriyanResume.pdf">
+                        Download CV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for CV Download and Animations -->
+    <script>
+        // Add download functionality for the CV
+        document.getElementById('downloadCVButton').addEventListener('click', function (event) {
+            const pdfFilePath = event.target.getAttribute('data-pdf-url');
+            const link = document.createElement("a");
+            link.href = pdfFilePath;
+            link.download = "Sathpriyancv.pdf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // Scroll-based animation for About Section
+        window.addEventListener('scroll', () => {
+            const aboutSection = document.getElementById('about');
+            const aboutTop = aboutSection.offsetTop;
+            const scrollPosition = window.scrollY + window.innerHeight;
+
+            if (scrollPosition > aboutTop + 100) {
+                aboutSection.classList.add('animate__fadeIn');
+            }
+        });
+    </script>
+    <style>
+        /* General Section Styling */
+        .section {
+            padding: 3rem 1rem;
+            background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+        }
+
+        /* About Section Styling */
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .about-img-holder {
+            flex: 1 1 300px;
+            max-width: 300px;
+            margin: 1rem auto;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+        }
+
+        .about-img-holder:hover .about-img {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .about-caption {
+            flex: 2 1 500px;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #212529;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #495057;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-rounded {
+            border-radius: 50px;
+            padding: 0.6rem 2rem;
+            font-size: 1rem;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-rounded:hover {
+            background: #0056b3;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        /* Animation */
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Tablet Screens (768px or less) */
+        @media (max-width: 768px) {
+            .about {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-img-holder {
+                max-width: 250px;
+            }
+
+            .about-caption {
+                text-align: center;
+                padding: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .btn-rounded {
+                width: 80%;
+                font-size: 1rem;
+            }
+        }
+
+        /* Smartphone Screens (576px or less) */
+        @media (max-width: 576px) {
+            .about-img-holder {
+                max-width: 200px;
+            }
+
+            .about-img {
+                max-width: 200px;
+            }
+
+            .about-caption {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .btn-rounded {
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 0.5rem 1.5rem;
+            }
+        }
+    </style>
+
+
+    <style>
+
+    </style>
+    <!-- Education Section -->
+    <section class="section bg-light pt-5 pb-5" id="education">
+        <div class="container text-center">
+            <p class="section-subtitle animate__animated animate__fadeInDown">My Journey</p>
+            <h2 class="section-title mb-5 animate__animated animate__fadeInUp">Education Qualifications</h2>
+            <div class="timeline">
+                <div class="timeline-item animate__animated animate__fadeInLeft">
+                    <h3>BSc in Electronics (2020 - 2023)</h3>
+                    <p>Graduated from CAS IHRD (Calicut University), Kozhikode, building a strong foundation in
+                        electronics and technology.</p>
+                </div>
+                <div class="timeline-item animate__animated animate__fadeInRight">
+                    <h3>Higher Secondary - Bio Science (2018 - 2020)</h3>
+                    <p>Completed Higher Secondary Education in Bio Science at MCCHSS, Kozhikode, excelling in academic
+                        and practical knowledge.</p>
+                </div>
+                <div class="timeline-item animate__animated animate__fadeInLeft">
+                    <h3>10th Grade (2018)</h3>
+                    <p>Achieved top grades in 10th Grade, laying the foundation for further academic success at MCCHSS,
+                        Kozhikode.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .timeline-item {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            transition: width 0.3s ease-in-out;
+        }
+
+        .timeline-item:hover::before {
+            width: 100%;
+        }
+
+        .timeline-item h3 {
+            font-size: 1.5rem;
+            color: #007bff;
+            opacity: 95%;
+        }
+
+        .timeline-item p {
+            font-size: 1rem;
+            color: black;
+            margin-top: 10px;
+            opacity: 95%;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .timeline {
+                align-items: flex-start;
+            }
+
+            .timeline-item {
+                width: 100%;
+            }
+
+            .timeline-item h3 {
+                font-size: 1.25rem;
+            }
+
+            .timeline-item p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+
+    <script>
+        // Adding some animation effects using Intersection Observer
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__zoomIn');
+                }
+            });
+        });
+
+        timelineItems.forEach(item => observer.observe(item));
+    </script>
+
+    <!-- service section -->
+    <section class="section" id="service">
+        <div class="container text-center">
+            <p class="section-subtitle">What I Do ?</p>
+            <h6 class="section-title mb-6">Service</h6>
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="body">
+                            <img src="imgs/pencil-case.svg"
+                                alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page"
+                                class="icon">
+                            <h6 class="title">DESINNER</h6>
+                            <p class="subtitle">Showcasing creativity, passion, and innovative designs that bring ideas
+                                to life.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="body">
+                            <img src="imgs/responsive.svg"
+                                alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page"
+                                class="icon">
+                            <h6 class="title">WEB DEVELOPING</h6>
+                            <p class="subtitle">Crafting responsive, user-friendly websites with modern technologies and
+                                clean code.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="body">
+                            <img src="imgs/toolbox.svg"
+                                alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page"
+                                class="icon">
+                            <h6 class="title">BACKEND DEVELOPING</h6>
+                            <p class="subtitle">Building robust, secure, and scalable server-side solutions to power
+                                seamless applications.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="body">
+                            <img src="imgs/analytics.svg"
+                                alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page"
+                                class="icon">
+                            <h6 class="title">FREELANCE WORK</h6>
+                            <p class="subtitle">Delivering personalized solutions and quality projects tailored to
+                                client needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end of row -->
+        </div>
+    </section><!-- end of service section -->
+
+    <!-- portfolio section -->
+    <section class="section" id="portfolio">
+        <div class="container text-center">
+            <p class="section-subtitle">What I Did ?</p>
+            <h6 class="section-title mb-6">Portfolio</h6>
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="#" class="portfolio-card">
+                        <img src="imgs/folio-1.jpg" class="portfolio-card-img"
+                            alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                        <span class="portfolio-card-overlay">
+                            <span class="portfolio-card-caption">
+                                <h4>Clinical management </h5>
+                                    <p class="font-weight-normal">Category: Web Templates</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="portfolio-card">
+                        <img class="portfolio-card-img" src="imgs/folio-2.jpg"
+                            class="img-responsive rounded"
+                            alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                        <span class="portfolio-card-overlay">
+                            <span class="portfolio-card-caption">
+                                <h4>Hospital managment</h5>
+                                    <p class="font-weight-normal">Category: Web Templates</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="portfolio-card">
+                        <img class="portfolio-card-img" src="imgs/folio-3.jpg"
+                            class="img-responsive rounded"
+                            alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                        <span class="portfolio-card-overlay">
+                            <span class="portfolio-card-caption">
+                                <h4>Docto CRM</h5>
+                                    <p class="font-weight-normal">Category: Web Templates</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </div><!-- end of row -->
+        </div><!-- end of container -->
+    </section> <!-- end of portfolio section -->
+
+    <section class="section-sm bg-primary">
+        <!-- container -->
+        <div class="container text-center text-sm-left">
+            <!-- row -->
+            <div class="row align-items-center">
+                <div class="col-sm offset-md-1 mb-4 mb-md-0">
+                    <h6 class="title text-light">Want to work with me?</h6>
+                    <p class="m-0 text-light">Always feel Free to Contact & Hire me</p>
+                </div>
+                <div class="col-sm offset-sm-2 offset-md-3">
+                    <a href=""></a><button id="sendButton" class="btn btn-lg my-font btn-light rounded">Hire
+                        Me</button></a>
+                </div>
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </section> <!-- end of section -->
+
+    <!-- testimonial section -->
+    <section class="section" id="testmonial">
+        <div class="container text-center">
+            <p class="section-subtitle">What Think partners in project ?</p>
+            <h6 class="section-title mb-6">Team members</h6>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-img-holder">
+                            <img src="imgs/avatar2.jpg" class="testimonial-card-img"
+                                alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                        </div>
+                        <div class="testimonial-card-body">
+                            <p class="testimonial-card-subtitle">particpates in live project in team as backend
+                                developer</p>
+                            <h6 class="testimonial-card-title">vyshak</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-img-holder">
+                            <img src="imgs/avatar3.jpg" class="testimonial-card-img"
+                                alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                        </div>
+                        <div class="testimonial-card-body">
+                            <p class="testimonial-card-subtitle">Participate as project coordinator and frontend
+                                developer</p>
+                            <h6 class="testimonial-card-title">Neha joy</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end of container -->
+    </section> <!-- end of testimonial section -->
+    <!-- Skill Section -->
+    <section class="section" id="skill">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-container" id="skills-container">
+            <!-- Skill Items -->
+            <div class="skill">
+                <span class="skill-name">HTML</span>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--progress: 90%;"></div>
+                    <span class="skill-percentage">0%</span>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="skill-name">CSS</span>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--progress: 85%;"></div>
+                    <span class="skill-percentage">0%</span>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="skill-name">JavaScript</span>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--progress: 80%;"></div>
+                    <span class="skill-percentage">0%</span>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="skill-name">Django</span>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--progress: 75%;"></div>
+                    <span class="skill-percentage">0%</span>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="skill-name">React</span>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--progress: 80%;"></div>
+                    <span class="skill-percentage">0%</span>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="skill-name">Tailwind CSS</span>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--progress: 80%;"></div>
+                    <span class="skill-percentage">0%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Animation -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const skillsContainer = document.getElementById("skills-container");
+            const skills = document.querySelectorAll(".skill");
+
+            // Scroll animation
+            let scrollDirection = 1; // 1 for down, -1 for up
+            const scrollInterval = 50; // Scroll step in milliseconds
+            const scrollStep = 1; // Pixels to scroll per interval
+
+            // Auto-scroll function
+            const autoScroll = () => {
+                const maxScrollTop = skillsContainer.scrollHeight - skillsContainer.clientHeight;
+
+                if (skillsContainer.scrollTop >= maxScrollTop) {
+                    scrollDirection = -1; // Change direction to up
+                } else if (skillsContainer.scrollTop <= 0) {
+                    scrollDirection = 1; // Change direction to down
+                }
+
+                skillsContainer.scrollTop += scrollStep * scrollDirection;
+            };
+
+            // Start auto-scroll
+            setInterval(autoScroll, scrollInterval);
+
+            // Percentage and bar animations
+            skills.forEach(skill => {
+                const progress = skill.querySelector(".skill-progress");
+                const percentage = skill.querySelector(".skill-percentage");
+                const target = parseInt(progress.style.getPropertyValue("--progress"));
+
+                let currentPercentage = 0;
+                const duration = 2000; // Total animation time in ms
+                const intervalTime = 20; // Update interval in ms
+                const incrementValue = target / (duration / intervalTime);
+
+                const increment = () => {
+                    if (currentPercentage < target) {
+                        currentPercentage = Math.min(currentPercentage + incrementValue, target);
+                        percentage.textContent = `${Math.floor(currentPercentage)}%`;
+                    }
+                };
+
+                setTimeout(() => {
+                    progress.style.transition = `width ${duration}ms ease-in-out`;
+                    progress.style.width = progress.style.getPropertyValue("--progress");
+                    const interval = setInterval(() => {
+                        increment();
+                        if (currentPercentage >= target) {
+                            clearInterval(interval);
+                        }
+                    }, intervalTime);
+                }, 500);
+            });
+        });
+    </script>
+    <style>
+        /* Section Styling */
+        .section {
+            padding: 2rem;
+            background-color: #f9f9f9;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .skill {
+            width: 100%;
+            /* Equal width for all skill items */
+            text-align: left;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .skill-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 20px;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            width: 0%;
+            border-radius: 10px;
+            position: relative;
+            animation: growSkill 2s ease-in-out forwards;
+            box-shadow: 0px 0px 8px rgba(39, 117, 252, 0.5);
+        }
+
+        .skill-percentage {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        @keyframes growSkill {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: var(--progress);
+            }
+        }
+
+        /* Hide scrollbar for modern browsers */
+        .skills-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .skills-container {
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+            max-height: 400px;
+            /* Set maximum height for scrollable area */
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            scroll-behavior: smooth;
+            /* Smooth scrolling for animations */
+            width: 80%;
+            /* Default width for larger screens */
+            margin: 0 auto;
+            /* Center align the container */
+        }
+
+        /* Responsive Design for Tablets */
+        @media (max-width: 768px) {
+            .skills-container {
+                width: 90%;
+                /* Slightly wider width for tablets */
+                max-height: 300px;
+                /* Reduce height for smaller screens */
+            }
+        }
+
+        /* Responsive Design for Smartphones */
+        @media (max-width: 480px) {
+            .skills-container {
+                width: 95%;
+                /* Almost full width for smartphones */
+                max-height: 250px;
+                /* Reduce height further for compact design */
+                padding: 0.8rem;
+                /* Reduce padding for smaller screens */
+            }
+
+            .skill {
+                padding: 0.8rem;
+                /* Adjust inner padding for each skill */
+            }
+
+            .skill-name {
+                font-size: 1rem;
+                /* Reduce font size for skill name */
+            }
+
+            .skill-bar {
+                height: 15px;
+                /* Decrease the height of the skill bar */
+            }
+
+            .skill-percentage {
+                font-size: 0.9rem;
+                /* Adjust percentage text size */
+            }
+        }
+    </style>
+    <!-- contact section -->
+    <section class="section" id="contact">
+        <div class="container text-center">
+            <p class="section-subtitle">How can you communicate?</p>
+            <h6 class="section-title mb-5">Contact Me</h6>
+
+            <br>
+            <div class="ct">
+                <h6>Contact no: <a href="tel:+918589866959">+918589866959</a></h6>
+                <h6>Email: <a href="mailto:sathpriyaneshaji@gmail.com">sathpriyaneshaji@gmail.com</a></h6>
+                <h6>Address: Santhimandiram ho , Naduvulattu Paramba<br>Vengeri PO, Calicut<br> Kerala pin:673010<br>
+                    India</h6>
+            </div><br><br>
+            <!-- Google Map -->
+            <div id="map" class="map-container"></div>
+            <br><br>
+            <!-- Add Google Maps API -->
+            <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}"></script>
+            <script>
+                // Initialize Google Map
+                function initMap() {
+                    const location = { lat: 11.2588, lng: 75.7804 };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: location,
+                        styles: [
+                            { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
+                            { elementType: 'labels.text.stroke', stylers: [{ color: '#ffffff' }] },
+                            { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
+                            { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+                            { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c9c9c9' }] }
+                        ]
+                    });
+            
+                    const marker = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        title: "Vengeri PO, Calicut"
+                    });
+            
+                    marker.addListener("click", () => {
+                        marker.setAnimation(marker.getAnimation() ? null : google.maps.Animation.BOUNCE);
+                    });
+                }
+            
+                window.onload = initMap;
+            </script>
+            
+            <!-- CSS for Map -->
+            <style>
+                .map-container {
+                    width: 100%;
+                    height: 400px;
+                    border: 2px solid #ddd;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    animation: zoomIn 1s ease-in-out;
+                }
+
+                @keyframes zoomIn {
+                    0% {
+                        transform: scale(0.8);
+                        opacity: 0;
+                    }
+
+                    100% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+
+                #map {
+                    width: 100%;
+                    height: 100%;
+                }
+            </style>
+            <h2>Send Meassage </h2>
+            <!-- contact form -->
+            <form action="contact" method="POST" class="contact-form col-md-10 col-lg-8 m-auto">
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <input type="text" size="50" class="form-control" placeholder="Your Name" name="name" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <input type="email" class="form-control" placeholder="Enter Email" name="email" requried>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <textarea id="comment" rows="6" class="form-control" placeholder="Write Something"
+                            name="description"></textarea>
+                    </div>
+                    <div class="form-group col-sm-12 mt-3">
+                        <input type="submit" value="Send Message" class="btn btn-outline-primary rounded">
+                    </div>
+                </div>
+            </form><!-- end of contact form -->
+        </div><!-- end of container -->
+    </section><!-- end of contact section -->
+
+    <!-- footer -->
+    <div class="container">
+        <footer class="footer">
+            <!-- Add this in the <head> section of your HTML -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+            <!-- Social Links Section -->
+            <div class="social-links text-right m-auto ml-sm-auto">
+                <a href="https://github.com/Sathpriyane123" class="link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://instagram.com/_priyan__77/" class="link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/sathpriyan-e/" class="link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </footer>
+    </div> <!-- end of page footer -->
+
+    <!-- core  -->
+    <script src="vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="vendors/bootstrap/bootstrap.bundle.js"></script>
+
+    <!-- bootstrap 3 affix -->
+    <script src="vendors/bootstrap/bootstrap.affix.js"></script>
+
+    <!-- Meyawo js -->
+    <script src="js/meyawo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+
+</html>
